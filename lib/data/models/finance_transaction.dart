@@ -14,7 +14,6 @@ class FinanceTransaction {
   });
 }
 
-// Homepage дээр харагдах гүйлгээнүүд
 const homeTransactions = [
   FinanceTransaction(
     title: 'Upwork',

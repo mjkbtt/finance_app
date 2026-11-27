@@ -1,5 +1,7 @@
 import 'package:material_ui/material_ui.dart';
 
+import 'add_expense_screen.dart';
+import 'connect_wallet_screen.dart';
 import 'features/wallet/widgets/wallet_action_button.dart';
 import 'features/wallet/widgets/wallet_balance_summary.dart';
 import 'features/wallet/widgets/wallet_header.dart';
@@ -63,13 +65,29 @@ class _WalletScreenState extends State<WalletScreen>
                       WalletActionButton(
                         icon: Icons.add,
                         label: 'Нэмэх',
-                        onTap: () => _showInfo('Нэмэх товч дарлаа'),
+                        onTap: () {
+                          Navigator.of(context).push(
+                            MaterialPageRoute(
+                              builder: (_) =>
+                                  ConnectWalletScreen(initialTab: 0),
+                            ),
+                          );
+                        },
                       ),
                       const SizedBox(width: 56),
                       WalletActionButton(
                         icon: Icons.qr_code_2_rounded,
                         label: 'Төлбөр',
-                        onTap: () => _showInfo('Төлбөр товч дарлаа'),
+                        onTap: () async {
+                          final added = await Navigator.of(context).push<bool>(
+                            MaterialPageRoute(
+                              builder: (_) => const AddExpenseScreen(),
+                            ),
+                          );
+                          if (added == true) {
+                            _tabController.animateTo(1);
+                          }
+                        },
                       ),
                     ],
                   ),

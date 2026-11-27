@@ -1,5 +1,6 @@
 import 'package:material_ui/material_ui.dart';
 
+import '../../../data/finance_store.dart';
 import '../../../data/models/finance_transaction.dart';
 import '../../../shared/widgets/transaction_list_item.dart';
 
@@ -23,35 +24,46 @@ class WalletPendingList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListView.builder(
-      padding: const EdgeInsets.symmetric(horizontal: 22),
-      itemCount: pendingTransactions.length,
-      itemBuilder: (context, index) {
-        final item = pendingTransactions[index];
-        return TransactionListItem(
-          transaction: item,
-          trailing: GestureDetector(
-            onTap: () {
-              ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(content: Text('${item.title} төлбөр төлөх дарлаа')),
-              );
-            },
-            child: Container(
-              padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 10),
-              decoration: BoxDecoration(
-                color: const Color(0xFFECF9F8),
-                borderRadius: BorderRadius.circular(24),
-              ),
-              child: const Text(
-                'Төлөх',
-                style: TextStyle(
-                  fontSize: 14,
-                  color: Color(0xFF438883),
-                  fontWeight: FontWeight.w600,
+    return ListenableBuilder(
+      listenable: FinanceStore.instance,
+      builder: (context, _) {
+        final items = FinanceStore.instance.pending;
+        return ListView.builder(
+          padding: const EdgeInsets.symmetric(horizontal: 22),
+          itemCount: items.length,
+          itemBuilder: (context, index) {
+            final item = items[index];
+            return TransactionListItem(
+              transaction: item,
+              trailing: GestureDetector(
+                onTap: () {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(
+                      content: Text('${item.title} төлбөр төлөх дарлаа'),
+                    ),
+                  );
+                },
+                child: Container(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 24,
+                    vertical: 10,
+                  ),
+                  decoration: BoxDecoration(
+                    color: const Color(0xFFECF9F8),
+                    borderRadius: BorderRadius.circular(24),
+                  ),
+                  child: const Text(
+                    'Төлөх',
+                    style: TextStyle(
+                      fontSize: 14,
+                      color: Color(0xFF438883),
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
                 ),
               ),
-            ),
-          ),
+            );
+          },
         );
       },
     );

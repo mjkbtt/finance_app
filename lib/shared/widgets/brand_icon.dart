@@ -47,6 +47,18 @@ class BrandIcon extends StatelessWidget {
         color: Color(0xFF3A7D76),
         size: 28,
       ),
+      'netflix' => const CircleAvatar(
+        radius: 16,
+        backgroundColor: Colors.black,
+        child: Text(
+          'N',
+          style: TextStyle(
+            color: Color(0xFFE50914),
+            fontWeight: FontWeight.w900,
+            fontSize: 18,
+          ),
+        ),
+      ),
       'spotify' => const CircleAvatar(
         radius: 15,
         backgroundColor: Color(0xFF1DB954),
